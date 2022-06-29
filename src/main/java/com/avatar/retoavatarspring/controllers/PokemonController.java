@@ -23,15 +23,15 @@ public class PokemonController {
         this.restTemplate = restTemplate;
     }
 
-    @GetMapping("/hi")
+    /*@GetMapping("/hi")
     public Result getApi(){
         String url="https://jsonplaceholder.typicode.com/todos/1";
         Result result=restTemplate.getForObject(url, Result.class);
         System.out.println(result);
         return result;
-    }
+    }*/
 
-    @GetMapping("/all")
+    /*@GetMapping("/all")
     public ResponseEntity<Result[]> getAllResult(){
         String url="https://jsonplaceholder.typicode.com/todos";
         //Result[] listaRes=restTemplate.getForObject(url, Result[].class);
@@ -42,7 +42,7 @@ public class PokemonController {
         //List<Result> results=new ArrayList<>(Arrays.asList(listaRes));
         //ResponseEntity(T body, HttpStatus status)
         return response;
-    }
+    }*/
     
     //abilities
     @GetMapping("/pokemon/{id}")
@@ -55,12 +55,9 @@ public class PokemonController {
         try {
             response = restTemplate.exchange(url, HttpMethod.GET, entity, Pokemon.class);
         }catch (HttpStatusCodeException e){
-            Map<String,Object> response_error=new HashMap<>();  
+            Map<String,Object> response_error=new HashMap<>();
             response_error.put("message","Error ese pokemon no existe en la Api");
             response_error.put("error",e.getMessage());
-            //System.out.println(e.getCause().getMessage());
-            //ResponseEntity.status(e.getRawStatusCode()).headers(e.getResponseHeaders())
-            //                    .body(e.getResponseBodyAsString())
             return new ResponseEntity<>(response_error,HttpStatus.NOT_FOUND);
         }
         Pokemon pokemon = response.getBody();
